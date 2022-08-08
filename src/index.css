@@ -1,13 +1,122 @@
-body {
+:root {
+  --bs-body-bg: #303841;
+  --bs-card-bg: #262e35;
+  --body-text-color: #a6b0cf;
+  --bs-gray-100: #212529;
+  --bs-gray-200: #272c3b;
+  --bs-gray-300: #36404a;
+  --bs-gray-400: #a6b0cf;
+  --bs-gray-500: #9aa1b9;
+  --bs-gray-600: #abb4d2;
+  --bs-gray-700: #e1e9f1;
+  --bs-gray-800: #eff2f7;
+  --bs-gray-900: #f8f9fa;
+  --bs-primary-rgb: 114,105,239;
+}
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.body-bg{
+  background-color: var(--bs-body-bg);
+}
+.card-bg{
+  background-color: var(--bs-card-bg) !important;
+  color: var(--body-text-color) !important;
+}
+.auth_card{
+  min-width: 550px;
+  padding: 30px;
+}
+.gray-700{
+ color: var(--bs-gray-700);
+}
+.btn-primary{
+  background-color: #7269ef !important;
+  border-color: #7269ef !important;
+  color: #fff !important;
+}
+.auth-page{
+  min-height: 100vh;
+  color: var(--body-text-color) !important;
+}
+
+.d-flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.d-flex-row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.auth_header{
+  text-align: center;
+}
+.auth_body{
+  margin-top: 15px;
+}
+
+.login-brand{
+  width: 35px;
+  margin-bottom: 15px;
+  margin-right: 5px;
+}
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root{
+  color: var(--body-text-color) !important;
+}
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root,
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
+  color: var(--body-text-color) !important;
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+  border-color: var(--body-text-color) !important;
+}
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+  color: var(--body-text-color) !important;
+}
+.mt-10{
+  margin-top: 10px !important;
+}
+.mt-20{
+  margin-top: 20px !important;
+}
+.mt-30{
+  margin-top: 30px !important;
+}
+.mb-30{
+  margin-bottom: 30px !important;
+}
+.auth_link{
+  --bs-text-opacity: 1;
+  text-decoration: none;
+  color: rgba(var(--bs-primary-rgb),var(--bs-text-opacity))!important;
+}
+
+@media   (max-width:580px) {
+  .auth_card{
+    min-width: 400px;
+    padding: 25px;
+  } 
 }
