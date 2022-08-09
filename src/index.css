@@ -12,6 +12,7 @@
   --bs-gray-800: #eff2f7;
   --bs-gray-900: #f8f9fa;
   --bs-primary-rgb: 114,105,239;
+  --bs-sidebar-bg: #36404a;
 }
 
 * {
@@ -112,6 +113,16 @@ code {
   --bs-text-opacity: 1;
   text-decoration: none;
   color: rgba(var(--bs-primary-rgb),var(--bs-text-opacity))!important;
+}
+
+.sidebar{
+  background-color: var(--bs-sidebar-bg);
+  display: flex;
+  height: 100vh;
+  max-width: 75px;
+  min-height: 570px;
+  min-width: 75px;
+  z-index: 9;
 }
 
 @media   (max-width:580px) {

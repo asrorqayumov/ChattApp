@@ -10,8 +10,8 @@ const firebaseConfig = {
   measurementId: "G-72GE520LMR",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
 
-export const db = firebaseApp.firestore();
+initializeApp(firebaseConfig);
+
 
 export const auth = getAuth();

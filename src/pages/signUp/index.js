@@ -6,9 +6,47 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/config";
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
+  const inputHandler = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+    setError(" ");
+  };
+
+  const formHandler = (e) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, user.email, user.password)
+      .then((data) => {
+        updateProfile(auth.currentUser, {
+          displayName: user.name,
+        })
+          .then((res) => {
+            navigate("/dashboard");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        let res = err.message.includes("already")
+          ? "Sorry, this email is taken, please use another one"
+          : "Password should be at least 6 characters";
+        setError(res);
+        console.log(err);
+      });
+  };
   return (
     <div className="body-bg auth-page d-flex">
       <div>
@@ -30,15 +68,15 @@ const SignUp = () => {
             gutterBottom
             className="gray-700"
           >
-            Sign in
+            Sign up
           </Typography>
           <Typography gutterBottom variant="body1">
-            Sign in to continue to Chatvia.
+            Get your Chat app account now.
           </Typography>
         </div>
         <div className="auth_body mt-20">
           <Card className="card-bg auth_card">
-            <form action="">
+            <form onSubmit={formHandler}>
               <CardContent>
                 <TextField
                   style={{ width: "100%" }}
@@ -46,7 +84,9 @@ const SignUp = () => {
                   label="Email"
                   variant="outlined"
                   name="email"
+                  autoComplete="off"
                   required
+                  onChange={inputHandler}
                 />
                 <br />
                 <TextField
@@ -56,7 +96,9 @@ const SignUp = () => {
                   className="mt-20"
                   variant="outlined"
                   name="name"
+                  autoComplete="off"
                   required
+                  onChange={inputHandler}
                 />
                 <br />
                 <TextField
@@ -65,13 +107,21 @@ const SignUp = () => {
                   type={"password"}
                   label="Password"
                   variant="outlined"
+                  autoComplete="off"
                   name="password"
                   required
+                  onChange={inputHandler}
                 />
               </CardContent>
-
+              <Typography align="center" variant="body1" color="red">
+                {error}
+              </Typography>
               <CardActions className="mt-10">
-                <Button style={{ width: "100%" }} className="btn-primary">
+                <Button
+                  type="submit"
+                  style={{ width: "100%" }}
+                  className="btn-primary"
+                >
                   Sign up
                 </Button>
               </CardActions>

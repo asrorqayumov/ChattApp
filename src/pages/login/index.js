@@ -6,10 +6,40 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/config";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const inputHandler = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+    setError(" ");
+  };
+
+  const formHandler = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, user.email, user.password)
+      .then((data) => {
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        let res = err.message.includes("found")
+          ? "Sorry, user not found"
+          : "Email or password is wrong";
+        setError(res);
+      });
+  };
+
   return (
     <div className="body-bg auth-page d-flex">
       <div>
@@ -34,12 +64,12 @@ const Login = () => {
             Sign in
           </Typography>
           <Typography gutterBottom variant="body1">
-            Sign in to continue to Chatvia.
+            Sign in to continue to Chat app.
           </Typography>
         </div>
         <div className="auth_body mt-20">
           <Card className="card-bg auth_card">
-            <form action="">
+            <form onSubmit={formHandler}>
               <CardContent>
                 <TextField
                   style={{ width: "100%" }}
@@ -48,6 +78,8 @@ const Login = () => {
                   variant="outlined"
                   name="email"
                   required
+                  autoComplete="off"
+                  onChange={inputHandler}
                 />
                 <TextField
                   style={{ width: "100%" }}
@@ -57,11 +89,19 @@ const Login = () => {
                   variant="outlined"
                   name="password"
                   required
+                  onChange={inputHandler}
                 />
               </CardContent>
 
-              <CardActions className="mt-10">
-                <Button style={{ width: "100%" }} className="btn-primary">
+              <Typography align="center" variant="body1" color="red">
+                {error}
+              </Typography>
+              <CardActions>
+                <Button
+                  style={{ width: "100%" }}
+                  type="submit"
+                  className="btn-primary"
+                >
                   Sign In
                 </Button>
               </CardActions>
