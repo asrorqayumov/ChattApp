@@ -6,46 +6,49 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../firebase/config";
+import { auth, db } from "../../firebase/config";
+
 const SignUp = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState("");
   const [user, setUser] = useState({
     email: "",
     password: "",
     name: "",
   });
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const { email, name, password } = user;
+
   const inputHandler = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-    setError(" ");
+    setUser({ ...user, [e.target.name]: e.target.value });
+    setError("");
   };
 
-  const formHandler = (e) => {
+  const formHandler = async (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, user.email, user.password)
-      .then((data) => {
-        updateProfile(auth.currentUser, {
-          displayName: user.name,
-        })
-          .then((res) => {
-            navigate("/dashboard");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((err) => {
-        let res = err.message.includes("already")
-          ? "Sorry, this email is taken, please use another one"
-          : "Password should be at least 6 characters";
-        setError(res);
-        console.log(err);
+    try {
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+     
+      await setDoc(doc(db, "users",result.user.uid), {
+        uid: result.user.uid,
+        name,
+        email,
+        createdAt: Timestamp.fromDate(new Date()),
+        isOnline: true,
       });
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message);
+    }
   };
   return (
     <div className="body-bg auth-page d-flex">
@@ -85,8 +88,8 @@ const SignUp = () => {
                   variant="outlined"
                   name="email"
                   autoComplete="off"
-                  required
                   onChange={inputHandler}
+                  required
                 />
                 <br />
                 <TextField
@@ -97,8 +100,8 @@ const SignUp = () => {
                   variant="outlined"
                   name="name"
                   autoComplete="off"
-                  required
                   onChange={inputHandler}
+                  required
                 />
                 <br />
                 <TextField
@@ -109,8 +112,8 @@ const SignUp = () => {
                   variant="outlined"
                   autoComplete="off"
                   name="password"
-                  required
                   onChange={inputHandler}
+                  required
                 />
               </CardContent>
               <Typography align="center" variant="body1" color="red">

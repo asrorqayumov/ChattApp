@@ -85,6 +85,10 @@ code {
   margin-bottom: 15px;
   margin-right: 5px;
 }
+.navbar_brand{
+  width: 35px;
+  margin-right: 5px;
+}
 .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root{
   color: var(--body-text-color) !important;
 }

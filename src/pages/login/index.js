@@ -9,35 +9,41 @@ import {
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/config";
+import { auth, db } from "../../firebase/config";
+import { doc, updateDoc } from "firebase/firestore";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState("");
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
   const inputHandler = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setUser({ ...user, [e.target.name]: e.target.value });
     setError(" ");
   };
 
-  const formHandler = (e) => {
+  const formHandler = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, user.email, user.password)
-      .then((data) => {
-        navigate("/dashboard");
-      })
-      .catch((err) => {
-        let res = err.message.includes("found")
-          ? "Sorry, user not found"
-          : "Email or password is wrong";
-        setError(res);
+    try {
+      const result = await signInWithEmailAndPassword(
+        auth,
+        user.email,
+        user.password
+      );
+
+      await updateDoc(doc(db, "users", result.user.uid), {
+        isOnline: true,
       });
+
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
