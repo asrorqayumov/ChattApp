@@ -1,4 +1,3 @@
-import { createTheme, ThemeProvider } from "@mui/material";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
