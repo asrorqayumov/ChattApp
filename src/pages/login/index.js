@@ -40,7 +40,7 @@ const Login = () => {
         isOnline: true,
       });
 
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }

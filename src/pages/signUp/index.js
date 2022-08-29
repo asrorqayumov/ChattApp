@@ -134,7 +134,7 @@ const SignUp = () => {
         <div className="auth_footer mt-30">
           <div className="d-flex-row">
             <Typography>Already have an account ?</Typography>
-            <Link to="/" className="auth_link">
+            <Link to="/login" className="auth_link">
               Sign In
             </Link>
           </div>
