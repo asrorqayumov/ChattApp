@@ -50,30 +50,19 @@ const Login = () => {
     <div className="body-bg auth-page d-flex">
       <div>
         <div className="auth_header">
-          <div className="d-flex-row mb-30">
-            <img src="./logo.svg" alt="chat-logo" className="login-brand" />
-            <Typography
-              variant="h5"
-              fontWeight={500}
-              gutterBottom
-              className="gray-700"
-            >
-              Chat App
-            </Typography>
-          </div>
           <Typography
-            variant="h5"
-            fontWeight={600}
+            variant="h4"
+            fontWeight={500}
             gutterBottom
             className="gray-700"
           >
             Sign in
           </Typography>
-          <Typography gutterBottom variant="body1">
+          <Typography  variant="body1">
             Sign in to continue to Chat app.
           </Typography>
         </div>
-        <div className="auth_body mt-20">
+        <div className="auth_body mt-30">
           <Card className="card-bg auth_card">
             <form onSubmit={formHandler}>
               <CardContent>

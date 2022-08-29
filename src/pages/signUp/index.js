@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebase/config";
@@ -54,20 +54,9 @@ const SignUp = () => {
     <div className="body-bg auth-page d-flex">
       <div>
         <div className="auth_header">
-          <div className="d-flex-row mb-30">
-            <img src="./logo.svg" alt="chat-logo" className="login-brand" />
-            <Typography
-              variant="h5"
-              fontWeight={500}
-              gutterBottom
-              className="gray-700"
-            >
-              Chat App
-            </Typography>
-          </div>
           <Typography
-            variant="h5"
-            fontWeight={600}
+            variant="h4"
+            fontWeight={500}
             gutterBottom
             className="gray-700"
           >
@@ -77,7 +66,7 @@ const SignUp = () => {
             Get your Chat app account now.
           </Typography>
         </div>
-        <div className="auth_body mt-20">
+        <div className="auth_body mt-30">
           <Card className="card-bg auth_card">
             <form onSubmit={formHandler}>
               <CardContent>
