@@ -79,6 +79,7 @@ const SignUp = () => {
                   autoComplete="off"
                   onChange={inputHandler}
                   required
+                  sx={{input:{color:'#a6b0cf'},label:{color:'#a6b0cf'},fieldset:{borderColor:'#a6b0cf'}}}
                 />
                 <br />
                 <TextField
@@ -91,6 +92,7 @@ const SignUp = () => {
                   autoComplete="off"
                   onChange={inputHandler}
                   required
+                  sx={{input:{color:'#a6b0cf'},label:{color:'#a6b0cf'},fieldset:{borderColor:'#a6b0cf'}}}
                 />
                 <br />
                 <TextField
@@ -103,6 +105,7 @@ const SignUp = () => {
                   name="password"
                   onChange={inputHandler}
                   required
+                  sx={{input:{color:'#a6b0cf'},label:{color:'#a6b0cf'},fieldset:{borderColor:'#a6b0cf'}}}
                 />
               </CardContent>
               <Typography align="center" variant="body1" color="red">

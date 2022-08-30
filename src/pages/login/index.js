@@ -75,6 +75,7 @@ const Login = () => {
                   required
                   autoComplete="off"
                   onChange={inputHandler}
+                  sx={{input:{color:'#a6b0cf'},label:{color:'#a6b0cf'},fieldset:{borderColor:'#a6b0cf'}}}
                 />
                 <TextField
                   style={{ width: "100%" }}
@@ -85,6 +86,7 @@ const Login = () => {
                   name="password"
                   required
                   onChange={inputHandler}
+                  sx={{input:{color:'#a6b0cf'},label:{color:'#a6b0cf'},fieldset:{borderColor:'#a6b0cf'}}}
                 />
               </CardContent>
 
