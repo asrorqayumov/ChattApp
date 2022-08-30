@@ -17,6 +17,7 @@
   --bs-sidebar-menu-item-active-bg: #3e4a56;
   --bs-sidebar-sub-bg: #303841;
   --bs-border-color: #36404a;
+  --bs-chat-secondary-bg: #36404a;
 }
 
 * {
@@ -274,11 +275,11 @@ nav div a {
   text-align: right;
 }
 .me {
-  background: #0084ff;
+  background: var(--bs-chat-secondary-bg);
   color: white;
 }
 .friend {
-  background:#333;
+  background:var(--bs-sidebar-menu-item-active-color);
 }
 .selected_user {
   background: var(--bs-card-bg);
