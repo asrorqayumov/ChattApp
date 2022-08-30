@@ -1,11 +1,15 @@
 import {
   addDoc,
   collection,
+  doc,
+  getDoc,
   onSnapshot,
   orderBy,
   query,
   QuerySnapshot,
+  setDoc,
   Timestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -22,8 +26,7 @@ const Home = () => {
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
-  const [msgs,setMsgs] = useState([]);
-
+  const [msgs, setMsgs] = useState([]);
 
   const user1 = auth.currentUser.uid;
 
@@ -40,24 +43,28 @@ const Home = () => {
     return () => unsub();
   }, []);
 
-  const selectUser = (user) => {
+  const selectUser = async (user) => {
     setChat(user);
 
     const user2 = user.uid;
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
-    const msgRef = collection(db,'messages',id,'chat')
-    const q = query(msgRef,orderBy('createdAt','asc'))
+    const msgRef = collection(db, "messages", id, "chat");
+    const q = query(msgRef, orderBy("createdAt", "asc"));
 
-     onSnapshot(q,querySnapshot=>{
+    onSnapshot(q, (querySnapshot) => {
       let msgs = [];
-        querySnapshot.forEach(doc=>{
-          msgs.push(doc.data())
-        })
-        setMsgs(msgs)
-     })    
+      querySnapshot.forEach((doc) => {
+        msgs.push(doc.data());
+      });
+      setMsgs(msgs);
+    });
+
+    const docSnap = await getDoc(doc(db, "lastMsg", id));
+    if (docSnap.data().from !== user1) {
+      await updateDoc(doc(db, "lastMsg", id), { unread: false });
+    }
   };
-   console.log(msgs);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,6 +87,16 @@ const Home = () => {
       createdAt: Timestamp.fromDate(new Date()),
       media: url || "",
     });
+
+    await setDoc(doc(db, "lastMsg", id), {
+      text,
+      from: user1,
+      to: user2,
+      createdAt: Timestamp.fromDate(new Date()),
+      media: url || "",
+      unread: true,
+    });
+
     setText("");
   };
 
@@ -87,7 +104,15 @@ const Home = () => {
     <div className="home_container">
       <div className="users_container">
         {users.map((user) => {
-          return <User key={user.uid} user={user} selectUser={selectUser} />;
+          return (
+            <User
+              user1={user1}
+              key={user.uid}
+              user={user}
+              chat={chat}
+              selectUser={selectUser}
+            />
+          );
         })}
       </div>
       <div className="messages_container">
@@ -97,9 +122,11 @@ const Home = () => {
               <h3>{chat.name}</h3>
             </div>
             <div className="messages">
-                {msgs.length ? msgs.map((msg,i)=>{
-                  return <Message  key={i} msg={msg} />
-                }):null}
+              {msgs.length
+                ? msgs.map((msg, i) => {
+                    return <Message key={i} msg={msg} user1={user1} />;
+                  })
+                : null}
             </div>
             <MessageForm
               handleSubmit={handleSubmit}
@@ -109,7 +136,9 @@ const Home = () => {
             />
           </>
         ) : (
-          <h3 className="no_conv">Select a user to start messaging</h3>
+          <div className="d-flex" style={{ height: "100%" }}>
+            <h3 className="no_conv">Select a chat to start messaging</h3>
+          </div>
         )}
       </div>
     </div>

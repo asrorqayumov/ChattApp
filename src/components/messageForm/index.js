@@ -19,7 +19,7 @@ const MessageForm = ({handleSubmit,text,setText,setImg}) => {
         <input type="text" placeholder="Enter message" value={text} onChange={(e)=> setText(e.target.value)} />
       </div>
       <div>
-         <Button type="submit" style={{marginBottom:'10px'}} className="btn-primary">Send</Button>
+         <Button type="submit" variant="contained" className="btn-send">Send</Button>
       </div>
     </form>
   );

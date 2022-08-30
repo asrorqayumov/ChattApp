@@ -11,9 +11,6 @@ import {
 } from "firebase/storage";
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 import Delete from "../../components/svg/Delete";
-
-import Navbar from "../../components/navbar";
-
 const Profile = () => {
     const [img, setImg] = useState("");
   const [user, setUser] = useState();
@@ -72,7 +69,6 @@ const Profile = () => {
   };
   return (
     <div>
-      <Navbar />
       <section>
         <div className="profile_container">
           <div className="img_container">
