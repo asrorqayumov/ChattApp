@@ -6,7 +6,6 @@ import {
   onSnapshot,
   orderBy,
   query,
-  QuerySnapshot,
   setDoc,
   Timestamp,
   updateDoc,
@@ -98,6 +97,7 @@ const Home = () => {
     });
 
     setText("");
+    setImg("");
   };
 
   return (
