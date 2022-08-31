@@ -235,7 +235,7 @@ nav div a {
 .messages {
   height: calc(100vh - 200px);
   overflow-y: auto;
-  border-bottom: 1px solid var(--color-6);
+  border-bottom: 1px solid var(--bs-border-color);
 }
 .message_wrapper {
   margin-top: 5px;
@@ -263,9 +263,12 @@ nav div a {
 .me {
   background: var(--bs-chat-secondary-bg);
   color: white;
+  word-break: break-all;
 }
 .friend {
   background:var(--bs-sidebar-menu-item-active-color);
+  word-break: break-all;
+
 }
 .selected_user {
   background: var(--bs-card-bg);
