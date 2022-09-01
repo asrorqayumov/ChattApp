@@ -52,6 +52,7 @@ const Home = () => {
     const q = query(msgRef, orderBy("createdAt", "asc"));
 
     onSnapshot(q, (querySnapshot) => {
+      
       let msgs = [];
       querySnapshot.forEach((doc) => {
         msgs.push(doc.data());
@@ -79,22 +80,24 @@ const Home = () => {
       const dlUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
       url = dlUrl;
     }
-    await addDoc(collection(db, "messages", id, "chat"), {
-      text,
-      from: user1,
-      to: user2,
-      createdAt: Timestamp.fromDate(new Date()),
-      media: url || "",
-    });
-
-    await setDoc(doc(db, "lastMsg", id), {
-      text,
-      from: user1,
-      to: user2,
-      createdAt: Timestamp.fromDate(new Date()),
-      media: url || "",
-      unread: true,
-    });
+    if (text || img) {
+      await addDoc(collection(db, "messages", id, "chat"), {
+        text,
+        from: user1,
+        to: user2,
+        createdAt: Timestamp.fromDate(new Date()),
+        media: url || "",
+      });
+  
+      await setDoc(doc(db, "lastMsg", id), {
+        text,
+        from: user1,
+        to: user2,
+        createdAt: Timestamp.fromDate(new Date()),
+        media: url || "",
+        unread: true,
+      });
+    }
 
     setText("");
     setImg("");
@@ -102,7 +105,7 @@ const Home = () => {
 
   return (
     <div className="home_container">
-      <div className="users_container">
+      <div className="users_container border-top">
         {users.map((user) => {
           return (
             <User

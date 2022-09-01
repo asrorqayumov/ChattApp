@@ -27,7 +27,7 @@ const Navbar = () => {
       <div>
         {user ? (
           <>
-            {/* <Link to={"/profile"}>Profile</Link> */}
+            <Link to={"/profile"}>Profile</Link>
             <Button variant="outlined" color="error" onClick={handleSignout}>
               Logout
             </Button>

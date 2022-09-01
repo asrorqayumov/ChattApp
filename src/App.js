@@ -18,9 +18,13 @@ function App() {
                <Home />
             </PrivateRoute>
           } />         
+          <Route path="/profile" element={
+            <PrivateRoute>
+               <Profile />
+            </PrivateRoute>
+          } />   
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/profile" element={<Profile />} />
         </Routes>
     </AuthProvider>
   );
