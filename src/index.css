@@ -316,6 +316,7 @@ nav div a {
   width: 550px;
   height: 200px;
   margin-top: 150px;
+  border-radius: 4px;
 }
 
 .img_container {

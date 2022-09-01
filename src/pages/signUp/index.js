@@ -51,7 +51,7 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="body-bg auth-page d-flex">
+    <div className="body-bg auth-page d-flex border-top">
       <div>
         <div className="auth_header">
           <Typography
