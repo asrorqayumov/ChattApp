@@ -65,7 +65,6 @@ section {
 }
 .card-bg {
   background-color: var(--bs-card-bg) !important;
-  color: var(--body-text-color) !important;
 }
 .auth_card {
   min-width: 550px;
@@ -308,7 +307,7 @@ nav div a {
 /* Profile  */
 
 .profile_wrapper{
-  box-shadow: 1px 2px 10px var(--bs-sidebar-menu-item-active-color);
+  box-shadow: 1px 2px 10px var(--bs-border-color);
   padding: 15px 25px;
   border-radius: 5px;
   color: white;

@@ -69,7 +69,7 @@ const Profile = () => {
 
   return user ? (
     <section className="border-top">
-      <div className="profile_wrapper">
+      <div className="profile_wrapper card-bg">
         <div className="img_container">
           <img src={user.avatar || image} alt="avatar" />
           <div className="overlay">
